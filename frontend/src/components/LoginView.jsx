@@ -6,6 +6,7 @@ export default function LoginView() {
   const [selectedRole, setSelectedRole] = useState('HOD'); // HOD | Staff | Student
   const [email, setEmail] = useState('hod.cs@gmail.com');
   const [password, setPassword] = useState('hod123');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRoleChange = (role) => {
     setSelectedRole(role);
@@ -146,15 +147,46 @@ export default function LoginView() {
           </div>
 
           <div className="form-group" style={{ marginBottom: '24px' }}>
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <label style={{ margin: 0 }}>Password</label>
+              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                Default: <strong style={{ color: roleStyle.accentColor }}>{selectedRole === 'HOD' ? 'hod123' : selectedRole === 'Staff' ? 'staff123' : 'student123'}</strong>
+              </span>
+            </div>
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className="form-control"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{ paddingRight: '46px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '8px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid var(--border-glass)',
+                  borderRadius: '6px',
+                  color: '#94a3b8',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  padding: '4px 8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? '🙈 Hide' : '👁️ Show'}
+              </button>
+            </div>
           </div>
 
           <button
@@ -170,7 +202,7 @@ export default function LoginView() {
         {/* Demo Fast Login Helper */}
         <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px dashed var(--border-glass)', textAlign: 'center' }}>
           <p style={{ fontSize: '0.78rem', color: '#64748b', marginBottom: '10px', fontWeight: 600 }}>
-            ⚡ TEACHER & PORTAL DEMO LOGINS:
+            ⚡ QUICK DEMO LOGINS & PASSWORDS:
           </p>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <button
@@ -178,42 +210,42 @@ export default function LoginView() {
               className="btn btn-secondary"
               style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
             >
-              👩‍🏫 Ezhilarasi
+              👩‍🏫 Ezhilarasi 🔑 <code style={{ color: '#fff' }}>staff123</code>
             </button>
             <button
               onClick={() => { setSelectedRole('Staff'); setEmail('priyadharshini.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
               className="btn btn-secondary"
               style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
             >
-              👩‍🏫 Priyadharshini
+              👩‍🏫 Priyadharshini 🔑 <code style={{ color: '#fff' }}>staff123</code>
             </button>
             <button
               onClick={() => { setSelectedRole('Staff'); setEmail('ganeshkumar.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
               className="btn btn-secondary"
               style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
             >
-              👨‍🏫 Ganesh kumar
+              👨‍🏫 Ganesh kumar 🔑 <code style={{ color: '#fff' }}>staff123</code>
             </button>
             <button
               onClick={() => { setSelectedRole('Staff'); setEmail('nagul.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
               className="btn btn-secondary"
               style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
             >
-              👨‍🏫 Nagul
+              👨‍🏫 Nagul 🔑 <code style={{ color: '#fff' }}>staff123</code>
             </button>
             <button
               onClick={() => handleRoleChange('HOD')}
               className="btn btn-secondary"
               style={{ fontSize: '0.75rem', padding: '4px 10px' }}
             >
-              👑 HOD
+              👑 HOD 🔑 <code style={{ color: '#fff' }}>hod123</code>
             </button>
             <button
               onClick={() => handleRoleChange('Student')}
               className="btn btn-secondary"
               style={{ fontSize: '0.75rem', padding: '4px 10px' }}
             >
-              🎓 Student
+              🎓 Student 🔑 <code style={{ color: '#fff' }}>student123</code>
             </button>
           </div>
         </div>
