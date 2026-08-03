@@ -12,10 +12,10 @@ const defaultUsers = [
   {
     id: 'u-hod-1',
     name: 'Dr. Robert Vance (HOD)',
-    email: 'hod.cs@gmail.com',
+    email: 'hodit@gmail.com',
     passwordHash: bcrypt.hashSync('hod123', 10),
     role: 'HOD',
-    department: 'Computer Science & Engineering',
+    department: 'Information Technology',
     createdBy: 'System Root'
   },
   {
@@ -25,7 +25,7 @@ const defaultUsers = [
     passwordHash: bcrypt.hashSync('staff123', 10),
     role: 'Staff',
     department: 'Computer Science & Engineering',
-    createdBy: 'hod.cs@gmail.com'
+    createdBy: 'hodit@gmail.com'
   },
   {
     id: 'u-staff-2',
@@ -34,7 +34,7 @@ const defaultUsers = [
     passwordHash: bcrypt.hashSync('staff123', 10),
     role: 'Staff',
     department: 'Information Technology',
-    createdBy: 'hod.cs@gmail.com'
+    createdBy: 'hodit@gmail.com'
   },
   {
     id: 'u-student-1',

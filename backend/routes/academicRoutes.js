@@ -24,7 +24,7 @@ global.inMemoryNotices = global.inMemoryNotices || [
     content: 'Tomorrow is a Parents-Teachers Meeting (PTM) starting at 10:00 AM in the Main Auditorium. So kindly bring your parents for the academic performance discussion.',
     category: 'Meeting',
     authorName: 'Dr. Robert Vance (HOD)',
-    authorEmail: 'hod.cs@gmail.com',
+    authorEmail: 'hodit@gmail.com',
     authorRole: 'HOD',
     targetAudience: 'All Department Students & Staff',
     createdAt: new Date().toISOString()
