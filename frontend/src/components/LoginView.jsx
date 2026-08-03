@@ -4,15 +4,23 @@ import { useAuth } from '../context/AuthContext';
 export default function LoginView() {
   const { login, loading, error, setError } = useAuth();
   const [selectedRole, setSelectedRole] = useState('HOD'); // HOD | Staff | Student
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('hodit@gmail.com');
+  const [password, setPassword] = useState('hod123');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleRoleChange = (role) => {
     setSelectedRole(role);
     setError(null);
-    setEmail('');
-    setPassword('');
+    if (role === 'HOD') {
+      setEmail('hodit@gmail.com');
+      setPassword('hod123');
+    } else if (role === 'Staff') {
+      setEmail('ezhilarasi.teacher@gmail.com');
+      setPassword('staff123');
+    } else if (role === 'Student') {
+      setEmail('kiresh.student@gmail.com');
+      setPassword('student123');
+    }
   };
 
   const handleSubmit = async (e) => {
