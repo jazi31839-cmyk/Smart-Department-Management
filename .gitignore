@@ -1,0 +1,25 @@
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables & secrets
+.env
+*.env
+backend/.env
+frontend/.env
+
+# Build outputs
+dist/
+**/dist/
+build/
+**/build/
+
+# Uploaded files
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
