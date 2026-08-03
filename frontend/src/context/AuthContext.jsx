@@ -3,17 +3,16 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('college_user');
-    return saved ? JSON.parse(saved) : null;
-  });
-
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem('college_token') || null;
-  });
-
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Clear session storage on refresh so app always starts at login screen
+    localStorage.removeItem('college_user');
+    localStorage.removeItem('college_token');
+  }, []);
 
   const login = async (email, password, requestedRole) => {
     setLoading(true);

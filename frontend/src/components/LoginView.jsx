@@ -4,23 +4,15 @@ import { useAuth } from '../context/AuthContext';
 export default function LoginView() {
   const { login, loading, error, setError } = useAuth();
   const [selectedRole, setSelectedRole] = useState('HOD'); // HOD | Staff | Student
-  const [email, setEmail] = useState('hod.cs@gmail.com');
-  const [password, setPassword] = useState('hod123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleRoleChange = (role) => {
     setSelectedRole(role);
     setError(null);
-    if (role === 'HOD') {
-      setEmail('hod.cs@gmail.com');
-      setPassword('hod123');
-    } else if (role === 'Staff') {
-      setEmail('sarah.teacher@gmail.com');
-      setPassword('staff123');
-    } else if (role === 'Student') {
-      setEmail('kiresh.student@gmail.com');
-      setPassword('student123');
-    }
+    setEmail('');
+    setPassword('');
   };
 
   const handleSubmit = async (e) => {
@@ -147,12 +139,7 @@ export default function LoginView() {
           </div>
 
           <div className="form-group" style={{ marginBottom: '24px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <label style={{ margin: 0 }}>Password</label>
-              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-                Default: <strong style={{ color: roleStyle.accentColor }}>{selectedRole === 'HOD' ? 'hod123' : selectedRole === 'Staff' ? 'staff123' : 'student123'}</strong>
-              </span>
-            </div>
+            <label style={{ marginBottom: '6px', display: 'block' }}>Password</label>
             <div style={{ position: 'relative' }}>
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -161,7 +148,7 @@ export default function LoginView() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{ paddingRight: '46px' }}
+                style={{ paddingRight: '90px' }}
               />
               <button
                 type="button"
@@ -176,7 +163,7 @@ export default function LoginView() {
                   borderRadius: '6px',
                   color: '#94a3b8',
                   cursor: 'pointer',
-                  fontSize: '0.9rem',
+                  fontSize: '0.85rem',
                   padding: '4px 8px',
                   display: 'flex',
                   alignItems: 'center',
@@ -198,57 +185,6 @@ export default function LoginView() {
             {loading ? 'Authenticating Credentials...' : `Login to ${selectedRole} Dashboard`}
           </button>
         </form>
-
-        {/* Demo Fast Login Helper */}
-        <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px dashed var(--border-glass)', textAlign: 'center' }}>
-          <p style={{ fontSize: '0.78rem', color: '#64748b', marginBottom: '10px', fontWeight: 600 }}>
-            ⚡ QUICK DEMO LOGINS & PASSWORDS:
-          </p>
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => { setSelectedRole('Staff'); setEmail('ezhilarasi.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
-            >
-              👩‍🏫 Ezhilarasi 🔑 <code style={{ color: '#fff' }}>staff123</code>
-            </button>
-            <button
-              onClick={() => { setSelectedRole('Staff'); setEmail('priyadharshini.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
-            >
-              👩‍🏫 Priyadharshini 🔑 <code style={{ color: '#fff' }}>staff123</code>
-            </button>
-            <button
-              onClick={() => { setSelectedRole('Staff'); setEmail('ganeshkumar.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
-            >
-              👨‍🏫 Ganesh kumar 🔑 <code style={{ color: '#fff' }}>staff123</code>
-            </button>
-            <button
-              onClick={() => { setSelectedRole('Staff'); setEmail('nagul.teacher@gmail.com'); setPassword('staff123'); setError(null); }}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '4px 10px', border: '1px solid #10b981', color: '#6ee7b7' }}
-            >
-              👨‍🏫 Nagul 🔑 <code style={{ color: '#fff' }}>staff123</code>
-            </button>
-            <button
-              onClick={() => handleRoleChange('HOD')}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '4px 10px' }}
-            >
-              👑 HOD 🔑 <code style={{ color: '#fff' }}>hod123</code>
-            </button>
-            <button
-              onClick={() => handleRoleChange('Student')}
-              className="btn btn-secondary"
-              style={{ fontSize: '0.75rem', padding: '4px 10px' }}
-            >
-              🎓 Student 🔑 <code style={{ color: '#fff' }}>student123</code>
-            </button>
-          </div>
-        </div>
 
       </div>
     </div>
