@@ -131,6 +131,20 @@ const seedDatabase = async () => {
 
     console.log('[Seeder] Starting MongoDB database seed operation...');
 
+    // 0. Seed HOD Account
+    const existingHOD = await User.findOne({ email: 'hodit@gmail.com' });
+    if (!existingHOD) {
+      await User.create({
+        name: 'Dr. Robert Vance (HOD)',
+        email: 'hodit@gmail.com',
+        password: 'hod123',
+        role: 'HOD',
+        department: 'Information Technology',
+        createdBy: 'System Root'
+      });
+      console.log('[Seeder] Created HOD account: Dr. Robert Vance (hodit@gmail.com)');
+    }
+
     // 1. Seed Teacher Accounts
     for (const t of seedTeachers) {
       const existingUser = await User.findOne({ email: t.email.toLowerCase() });

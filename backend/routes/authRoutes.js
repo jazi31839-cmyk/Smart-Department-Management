@@ -111,12 +111,31 @@ router.post('/login', async (req, res) => {
     });
   }
 
+  // Normalize email and support HOD legacy email aliases
+  let normalizedEmail = email.toLowerCase().trim();
+  if (normalizedEmail === 'hod.cs@gmail.com' || normalizedEmail === 'hod.it@gmail.com') {
+    normalizedEmail = 'hodit@gmail.com';
+  }
+
   try {
     let userFound = null;
 
     // Try MongoDB first if connected
     if (User.db && User.db.readyState === 1) {
-      userFound = await User.findOne({ email: email.toLowerCase() });
+      userFound = await User.findOne({ email: normalizedEmail });
+      
+      // Auto-create HOD account on demand if missing in DB
+      if (!userFound && normalizedEmail === 'hodit@gmail.com') {
+        userFound = await User.create({
+          name: 'Dr. Robert Vance (HOD)',
+          email: 'hodit@gmail.com',
+          password: 'hod123',
+          role: 'HOD',
+          department: 'Information Technology',
+          createdBy: 'System Root'
+        });
+      }
+
       if (userFound) {
         const isMatch = await userFound.matchPassword(password);
         if (!isMatch) {
@@ -127,7 +146,19 @@ router.post('/login', async (req, res) => {
 
     // Fallback to Memory Store if not in DB
     if (!userFound) {
-      const memUser = global.inMemoryUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+      let memUser = global.inMemoryUsers.find(u => u.email.toLowerCase() === normalizedEmail);
+      if (!memUser && normalizedEmail === 'hodit@gmail.com') {
+        memUser = {
+          id: 'u-hod-1',
+          name: 'Dr. Robert Vance (HOD)',
+          email: 'hodit@gmail.com',
+          passwordHash: bcrypt.hashSync('hod123', 10),
+          role: 'HOD',
+          department: 'Information Technology',
+          createdBy: 'System Root'
+        };
+        global.inMemoryUsers.push(memUser);
+      }
       if (memUser) {
         const isMatch = bcrypt.compareSync(password, memUser.passwordHash);
         if (!isMatch) {
